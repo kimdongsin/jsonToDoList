@@ -82,6 +82,12 @@ document.addEventListener("DOMContentLoaded", function () {
             e.target.parentElement.parentElement.querySelector(".todoList__span").innerText = e.target.parentElement.parentElement.querySelector(".todoList__correction").value;
             // 수정버튼 클릭 시 span의 값을 input값에 넣어줌. 기존 값을 넣어주는 기능
         }
+
+
+        // 3. 삭제기능
+        if(e.target.className == 'delBtn'){
+            console.log(e.target.parentElement.parentElement.parentElement.remove());
+        }
     });
 
 
@@ -105,7 +111,6 @@ document.addEventListener("DOMContentLoaded", function () {
             // span의 display를 block으로 변경
             e.target.parentElement.querySelector(".todoList__correction").style.display = "none";
             // input의 display를 none으로 변경
-
         }
     });
 
