@@ -19,22 +19,11 @@
                 <h1>ToDoList</h1>
 
                 <div class="todoList__input__wrap">
-                    <input type="text" placeholder="할 일을 입력하시오.">
+                    <input id="input" type="text" placeholder="할 일을 입력하시오.">
                     <button type="button" id="addBtn">추가</button>
                 </div>
 
-                <ul class="todoList__ul__wrap">
-                    <li>
-                        <div class="todoList__item__wrap">
-                            <span>123</span>
-
-                            <div class="todoList__item__btn">
-                                <button id="editBtn">수정</button>
-                                <button id="delBtn">삭제</button>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                <ul class="todoList__ul__wrap"></ul>
             </div>
         </section>
     </div>
@@ -45,6 +34,8 @@
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
         integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script src="./test.js"></script>
+
+    <script src="./js/todo.js"></script>
 </body>
 
 </html>
