@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'TiltWarp';
+    src: url('../fonts/TiltWarp-Regular.ttf') format('truetype');
+}
+
+* {
+    font-family: 'TiltWarp', serif !important;
+}

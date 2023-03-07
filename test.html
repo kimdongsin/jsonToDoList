@@ -1,22 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/test.css">
+    <link rel="stylesheet" href="./css/font.css">
     <title>Document</title>
 </head>
+
 <body>
-    
-    <h1>Test</h1>
 
-    <button id="addBtn">추가</button>
-    <button id="editBtn">수정</button>
-    <button id="delBtn">삭제</button>
+    <div id="container">
+        <section class="todoList">
+            <div class="todoList__wrap">
+                <h1>ToDoList</h1>
+
+                <div class="todoList__input__wrap">
+                    <input type="text" placeholder="할 일을 입력하시오.">
+                    <button type="button" id="addBtn">추가</button>
+                </div>
+
+                <ul class="todoList__ul__wrap">
+                    <li>
+                        <div class="todoList__item__wrap">
+                            <span>123</span>
+
+                            <div class="todoList__item__btn">
+                                <button id="editBtn">수정</button>
+                                <button id="delBtn">삭제</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
 
 
 
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script src="./test.js"></script>
 </body>
+
 </html>
