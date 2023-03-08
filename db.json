@@ -2,15 +2,18 @@
   "todos": [
     {
       "value": "awdawsd",
-      "id": 1
+      "id": 1,
+      "del": "true"
     },
     {
       "value": "awdawd",
-      "id": 2
+      "id": 2,
+      "del": "true"
     },
     {
       "value": "asd",
-      "id": 3
+      "id": 3,
+      "del": "true"
     },
     {
       "value": "asddas",
@@ -55,6 +58,11 @@
     {
       "value": "ㅁㅈㅇ",
       "id": 14
+    },
+    {
+      "value": "ㅁㄴㅇ",
+      "del": "false",
+      "id": 15
     }
   ]
 }

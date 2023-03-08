@@ -4,6 +4,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const toDoList = document.querySelector(".todoList__ul__wrap");
 
 
+    var today = new Date();
+
+    var year = today.getFullYear();
+    var month = ('0' + (today.getMonth() + 1)).slice(-2);
+    var day = ('0' + today.getDate()).slice(-2);
+    
+    var dateString = year + '-' + month  + '-' + day;
+    
+    console.log(dateString);
+
 
     $.ajax({ // 조회
         url : 'http://localhost:3000/todos',
@@ -22,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 tag += '                <div class="todoList__item__str">';
                 tag += '                   <span class="todoList__span">' + res[i].value  + '</span>';
                 tag += '                    <input type="text" class="todoList__correction">';
+                tag += '                    <span class="dateSpan">' + dateString + '</span>';
                 tag += '                </div>';
                 tag += '                <div class="todoList__item__btn" id="'+ res[i].id +'">';
                 tag += '                    <button class="editBtn">수정</button>';
@@ -65,6 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     tag += '                <div class="todoList__item__str">';
                     tag += '                    <span class="todoList__span">' + res.value + '</span>';
                     tag += '                    <input type="text" class="todoList__correction">';
+                    tag += '                    <span class="dateSpan">' + dateString + '</span>';
                     tag += '               </div>                                            ';
                     tag += '                <div class="todoList__item__btn" id="'+ res.id +'">';
                     tag += '                    <button class="editBtn">수정</button>';

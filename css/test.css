@@ -108,6 +108,11 @@ input[type="text"]{
     display: none;
 }
 
+.dateSpan{
+    margin-left: 10px;
+    color: blue;
+}
+
 @media (max-width: 768px){
     .todoList__wrap{
         width: 80%;
