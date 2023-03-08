@@ -44,9 +44,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-
-
-
     function addTag() { 
         if (input.value.trim() == "") { // 공백처리
             alert('빈 칸을 입력하시오.');
@@ -159,10 +156,9 @@ document.addEventListener("DOMContentLoaded", function () {
             // 수정
             $.ajax({
                 url : 'http://localhost:3000/todos/' + e.target.parentElement.id,
-                type: 'PUT',
+                type: 'PATCH',
                 data: {
                     value : spanElement.innerText,
-                    del : false,
                 },
                 success : function(res) {
                     console.log(res);
@@ -179,9 +175,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
             });
-
-
-
             
         }
 
@@ -192,9 +185,8 @@ document.addEventListener("DOMContentLoaded", function () {
             // 수정 , 삭제
                 $.ajax({
                     url : 'http://localhost:3000/todos/' + e.target.parentElement.id,
-                    type: 'PUT',
+                    type: 'PATCH',
                     data: {
-                        value : spanElement.innerText,
                         del : true,
                     },
                     success : function(res) {
@@ -226,6 +218,34 @@ document.addEventListener("DOMContentLoaded", function () {
             // span의 display를 block으로 변경
             keyInput.style.display = "none";
             // input의 display를 none으로 변경
+
+            keySpan.innerText = keyInput.value;
+            // keySpan텍스트에 keyInput값 저장.
+
+
+            // 수정
+            $.ajax({
+                url : 'http://localhost:3000/todos/' + e.target.parentElement.parentElement.parentElement.querySelector(".todoList__item__btn").id,
+                type: 'PATCH',
+                data: {
+                    value : keySpan.innerText,
+                },
+                success : function(res) {
+                    console.log(res);
+                    
+                    /*
+                    1. 수정하면 
+                    2. 해당 id.value = spanElement.innerText값을 저장한다.
+
+                    */
+                    
+                },
+                error : function(e) {
+                    console.log(e);
+                }
+
+            });
+
         }
     });
 });
@@ -234,7 +254,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+/*
 
+PUT = 덮어쓰기 ( 모든 data값을 정의해줘야 덮어써짐. )
+PATCH = 수정( 필요한 값만 data로 넣어주면 됨. )
+
+
+*/
 
 
 
