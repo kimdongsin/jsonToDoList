@@ -36,7 +36,7 @@ $('#addBtn').on('click', function() {
 $('#editBtn').on('click', function() {
     $.ajax({
         url : 'http://localhost:3000/todos/3',
-        // type: 'PUT',
+        type: 'PUT',
         data: {
             title: '6666666688888888888',
             body: '8888',
