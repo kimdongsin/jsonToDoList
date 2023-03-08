@@ -5,10 +5,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    $.ajax({
+    $.ajax({ // 조회
         url : 'http://localhost:3000/todos',
         type: 'GET',
         data: {
+            del: false,
         },
         success : function(res) {
             console.log(res);
@@ -22,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 tag += '                   <span class="todoList__span">' + res[i].value  + '</span>';
                 tag += '                    <input type="text" class="todoList__correction">';
                 tag += '                </div>';
-                tag += '                <div class="todoList__item__btn">';
+                tag += '                <div class="todoList__item__btn" id="'+ res[i].id +'">';
                 tag += '                    <button class="editBtn">수정</button>';
                 tag += '                    <button class="delBtn">삭제</button>';
                 tag += '                </div>';
@@ -46,53 +47,48 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-
-
-
-
-    function addTag() {
+    function addTag() { 
         if (input.value.trim() == "") { // 공백처리
             alert('빈 칸을 입력하시오.');
         } else {
-            let tag = '';
 
-            tag += '        <li>';
-            tag += '            <div class="todoList__item__wrap">';
-            tag += '                <div class="todoList__item__str">';
-            tag += '                    <span class="todoList__span">' + input.value + '</span>';
-            tag += '                    <input type="text" class="todoList__correction">';
-            tag += '                </div>                                            ';
-            tag += '                <div class="todoList__item__btn">';
-            tag += '                    <button class="editBtn">수정</button>';
-            tag += '                    <button class="delBtn">삭제</button>';
-            tag += '                </div>';
-            tag += '            </div>';
-            tag += '        </li>';
-
-            toDoList.insertAdjacentHTML("beforeend", tag); // 요소추가
-
-            
-            
-            $.ajax({
+            $.ajax({ // 추가
                 url : 'http://localhost:3000/todos',
                 data: {
                     value: input.value,
+                    del: false,
                 },
                 type: "POST",
                 success : function(res) {
+
+                    let tag = '';
+                    
+                    tag += '        <li>';
+                    tag += '            <div class="todoList__item__wrap">';
+                    tag += '                <div class="todoList__item__str">';
+                    tag += '                    <span class="todoList__span">' + res.value + '</span>';
+                    tag += '                    <input type="text" class="todoList__correction">';
+                    tag += '               </div>                                            ';
+                    tag += '                <div class="todoList__item__btn" id="'+ res.id +'">';
+                    tag += '                    <button class="editBtn">수정</button>';
+                    tag += '                    <button class="delBtn">삭제</button>';
+                    tag += '                </div>';
+                    tag += '            </div>';
+                    tag += '        </li>';
+                    
+                    toDoList.insertAdjacentHTML("beforeend", tag); // 요소추가
                     input.value = ''; // input 공백처리
-
                     
-                    
-
-
-                    console.log(res);
                 },
                 error : function(e) {
                     console.log(e);
                 },
                 
             });
+
+
+            
+            
         }
     }
 
@@ -128,7 +124,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const liElement = e.target.parentElement.parentElement.parentElement;
 
 
+        
+
         if (e.target.className == 'editBtn') {
+
+
             if (spanElement.style.display == "block" || spanElement.style.display == "") {
                 // ".todoList__span"의 display가 block 혹은 "" 공백일 때 실행
                 spanElement.style.display = "none";
@@ -138,6 +138,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 
                 inputElement.value = spanElement.innerText;
                 // ".todoList__correction"의 값에 ".todoList__span"의 텍스트 값을 저장
+
+                
                 
             } else if (spanElement.style.display == "none") { // span이 display: none일 때
                 if(inputElement.value.trim() == ""){  // input.display = block상태에서 input값이 input값이 공백으로 넘어왔을 때
@@ -152,12 +154,59 @@ document.addEventListener("DOMContentLoaded", function () {
 
             spanElement.innerText = inputElement.value;
             // 수정버튼 클릭 시 span의 값을 input값에 넣어줌. 기존 값을 넣어주는 기능
+
+
+            // 수정
+            $.ajax({
+                url : 'http://localhost:3000/todos/' + e.target.parentElement.id,
+                type: 'PUT',
+                data: {
+                    value : spanElement.innerText,
+                    del : false,
+                },
+                success : function(res) {
+                    console.log(res);
+                    
+                    /*
+                    1. 수정하면 
+                    2. 해당 id.value = spanElement.innerText값을 저장한다.
+
+                    */
+                    
+                },
+                error : function(e) {
+                    console.log(e);
+                }
+
+            });
+
+
+
+            
         }
 
 
         // 3. 삭제기능
         if(e.target.className == 'delBtn'){
-            liElement.remove();
+
+            // 수정 , 삭제
+                $.ajax({
+                    url : 'http://localhost:3000/todos/' + e.target.parentElement.id,
+                    type: 'PUT',
+                    data: {
+                        value : spanElement.innerText,
+                        del : true,
+                    },
+                    success : function(res) {
+                        console.log(res);
+                        liElement.remove();
+                    },
+                    error : function(e) {
+                        console.log(e);
+                    }
+                
+                });
+
         }
     });
 
@@ -179,8 +228,6 @@ document.addEventListener("DOMContentLoaded", function () {
             // input의 display를 none으로 변경
         }
     });
-
-
 });
 
 
