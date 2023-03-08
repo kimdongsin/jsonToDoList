@@ -1,9 +1,54 @@
 document.addEventListener("DOMContentLoaded", function () {
-
     const addBtn = document.querySelector("#addBtn");
     const input = document.querySelector("#input");
-
     const toDoList = document.querySelector(".todoList__ul__wrap");
+
+
+
+    $.ajax({
+        url : 'http://localhost:3000/todos',
+        type: 'GET',
+        data: {
+        },
+        success : function(res) {
+            console.log(res);
+            
+            for(let i = 0; i < res.length; i++){
+                let tag = '';
+                
+                tag += '        <li>';
+                tag += '            <div class="todoList__item__wrap">';
+                tag += '                <div class="todoList__item__str">';
+                tag += '                   <span class="todoList__span">' + res[i].value  + '</span>';
+                tag += '                    <input type="text" class="todoList__correction">';
+                tag += '                </div>';
+                tag += '                <div class="todoList__item__btn">';
+                tag += '                    <button class="editBtn">수정</button>';
+                tag += '                    <button class="delBtn">삭제</button>';
+                tag += '                </div>';
+                tag += '            </div>';
+                tag += '        </li>';
+                
+                toDoList.insertAdjacentHTML("beforeend", tag); // 요소추가
+
+            }
+
+        },
+        error : function(e) {
+            alert("에러");
+            console.log(e);
+        }
+    
+    });
+
+
+
+
+
+
+
+
+
 
     function addTag() {
         if (input.value.trim() == "") { // 공백처리
@@ -26,14 +71,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
             toDoList.insertAdjacentHTML("beforeend", tag); // 요소추가
 
-            input.value = ''; // input 공백처리
+            
+            
+            $.ajax({
+                url : 'http://localhost:3000/todos',
+                data: {
+                    value: input.value,
+                },
+                type: "POST",
+                success : function(res) {
+                    input.value = ''; // input 공백처리
+
+                    
+                    
+
+
+                    console.log(res);
+                },
+                error : function(e) {
+                    console.log(e);
+                },
+                
+            });
         }
     }
 
     // 1. 글 추가기능
 
     // 1-1. 글 추가기능 - 버튼클릭 시
-    addBtn.addEventListener("click", function () {
+    addBtn.addEventListener("click", function (e) {
         addTag();
     });
 
@@ -116,3 +182,71 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+// // 조회
+// $.ajax({
+//     url : 'http://localhost:3000/todos',
+//     type: 'GET',
+//     data: {
+//         delete: false
+//     },
+//     success : function(res) {
+//         console.log(res);
+//     },
+//     error : function(e) {
+//         alert("에러");
+//         console.log(e);
+//     }
+
+// });
+
+// //추가 
+// $('#addBtn').on('click', function() {
+    
+// });
+
+// // 수정
+// $('#editBtn').on('click', function() {
+//     $.ajax({
+//         url : 'http://localhost:3000/todos/3',
+//         // type: 'PUT',
+//         data: {
+//             title: '6666666688888888888',
+//             body: '8888',
+//             delete: true,
+//         },
+//         success : function(res) {
+//             console.log(res);
+//         },
+//         error : function(e) {
+//             console.log(e);
+//         }
+    
+//     });
+// });
+
+// 삭제
+// $('#delBtn').on('click', function() {
+//     $.ajax({
+//         url : 'http://localhost:3000/todos/5',
+//         type: 'DELETE',
+//         success : function(res) {
+//             console.log(res);
+//         },
+//         error : function(e) {
+//             console.log(e);
+//         }
+    
+//     });
+// });
