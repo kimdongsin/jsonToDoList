@@ -16,6 +16,21 @@
     align-items: center;
     padding: 20px;
     overflow: auto;
+    border-radius: 7px;
+}
+
+.todoList__wrap::-webkit-scrollbar {
+    width: 8px;  /* 스크롤바의 너비 */
+}
+
+.todoList__wrap::-webkit-scrollbar-thumb {
+    height: 30%; /* 스크롤바의 길이 */
+    background: #217af4; /* 스크롤바의 색상 */
+    border-radius: 10px;
+}
+
+.todoList__wrap::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
 }
 
 .todoList__wrap > h1{
@@ -25,6 +40,9 @@
 .todoList__input__wrap{
     min-height: 40px;
     margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .todoList__input__wrap > button{
@@ -33,6 +51,7 @@
     padding: 0 18px;
     background: #ffffff;
     border: none;
+    margin-left: 5px;
 }
 
 input[type="text"]{
@@ -87,4 +106,38 @@ input[type="text"]{
 
 .todoList__correction{
     display: none;
+}
+
+@media (max-width: 768px){
+    .todoList__wrap{
+        width: 80%;
+    }
+
+    input[type="text"],
+    .todoList__input__wrap,
+    .todoList__item__btn > button{
+        height: 30px;
+        min-height: 30px;
+    }
+    
+    .todoList__correction{
+        max-width: 120px;
+    }
+
+    .todoList__item__btn > button:not(:last-child){
+        margin-right: 5px;
+    }
+
+    .todoList__span,
+    .todoList__item__btn > button{
+        font-size: 12px;
+    }
+
+    .todoList__input__wrap > input{
+        width: 60%;
+    }
+
+    .todoList__input__wrap > button{
+        width: 25%;
+    }
 }
