@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             tag += '        <li>';
             tag += '            <div class="todoList__item__wrap">';
-            tag += '                <div class="todoList__item__str">                                            ';
+            tag += '                <div class="todoList__item__str">';
             tag += '                    <span class="todoList__span">' + input.value + '</span>';
             tag += '                    <input type="text" class="todoList__correction">';
             tag += '                </div>                                            ';
@@ -55,61 +55,61 @@ document.addEventListener("DOMContentLoaded", function () {
     
     */
 
-    let count = 1;
-
     // 2-1. 수정기능 - 수정 버튼 클릭 시 수정 할 input 보여줌.
     document.addEventListener("click", function (e) { // 문서에서 이벤트 타겟 시
+        const spanElement = e.target.parentElement.parentElement.querySelector(".todoList__span");
+        const inputElement = e.target.parentElement.parentElement.querySelector(".todoList__correction");
+        const liElement = e.target.parentElement.parentElement.parentElement;
 
 
         if (e.target.className == 'editBtn') {
-            if (e.target.parentElement.parentElement.querySelector(".todoList__span").style.display == "block" || e.target.parentElement.parentElement.querySelector(".todoList__span").style.display == "") {
+            if (spanElement.style.display == "block" || spanElement.style.display == "") {
                 // ".todoList__span"의 display가 block 혹은 "" 공백일 때 실행
-                e.target.parentElement.parentElement.querySelector(".todoList__span").style.display = "none";
+                spanElement.style.display = "none";
                 // ".todoList__span" 요소의 display = none으로 변경
-                e.target.parentElement.parentElement.querySelector(".todoList__correction").style.display = "block";
+                inputElement.style.display = "block";
                 // ".todoList__correction" 요소의 display = block으로 변경
-                e.target.parentElement.parentElement.querySelector(".todoList__correction").value = e.target.parentElement.parentElement.querySelector(".todoList__span").innerText;
+                
+                inputElement.value = spanElement.innerText;
                 // ".todoList__correction"의 값에 ".todoList__span"의 텍스트 값을 저장
-
-            } else if (e.target.parentElement.parentElement.querySelector(".todoList__span").style.display == "none") {
+                
+            } else if (spanElement.style.display == "none") { // span이 display: none일 때
+                if(inputElement.value.trim() == ""){  // input.display = block상태에서 input값이 input값이 공백으로 넘어왔을 때
+                    return false; // false로 return해서 종료시키므로, 공백인 상태에서 수정이 되지 않게 방지한다.
+                }
                 // ".todoList__span"의 display가 none일 때
-                e.target.parentElement.parentElement.querySelector(".todoList__span").style.display = "block";
+                spanElement.style.display = "block";
                 // ".todoList__span"의 display를 block으로 변경
-                e.target.parentElement.parentElement.querySelector(".todoList__correction").style.display = "none";
+                inputElement.style.display = "none";
                 // ".todoList__correction"의 display를 none으로 변경
             }
 
-            e.target.parentElement.parentElement.querySelector(".todoList__span").innerText = e.target.parentElement.parentElement.querySelector(".todoList__correction").value;
+            spanElement.innerText = inputElement.value;
             // 수정버튼 클릭 시 span의 값을 input값에 넣어줌. 기존 값을 넣어주는 기능
         }
 
 
         // 3. 삭제기능
         if(e.target.className == 'delBtn'){
-            console.log(e.target.parentElement.parentElement.parentElement.remove());
+            liElement.remove();
         }
     });
 
 
     // 2-2. 수정기능 - 수정내용을 입력 후 엔터 키 누르면 값 수정됨.
     document.addEventListener('keydown', function (e) {
+        const keyInput = e.target.parentElement.parentElement.querySelector(".todoList__correction");
+        const keySpan = e.target.parentElement.querySelector(".todoList__span");
+
         if (window.event.keyCode == 13) { // 엔터키 누르면 실행
-            if (e.target.value == undefined) { // undefined 방지 
+            if (e.target.value == undefined || keyInput.value.trim() == "") { // undefined 방지 
                 return false; // undefined를 만나면 false를 return 시켜서 종료시킴.
             }
 
-
-            if (e.target.parentElement.parentElement.querySelector(".todoList__correction").value.trim() != "") {
-                // input 값이 공백이 아니라면
-                e.target.parentElement.querySelector(".todoList__span").innerText = e.target.value;
-                // span의 텍스트에 타겟의 값 (input값)을 저장
-            }
-
-            e.target.parentElement.querySelector(".todoList__span").innerText = e.target.value;
             // span의 텍스트에 타겟의 값 (input값)을 저장
-            e.target.parentElement.querySelector(".todoList__span").style.display = "block";
+            keySpan.style.display = "block";
             // span의 display를 block으로 변경
-            e.target.parentElement.querySelector(".todoList__correction").style.display = "none";
+            keyInput.style.display = "none";
             // input의 display를 none으로 변경
         }
     });
