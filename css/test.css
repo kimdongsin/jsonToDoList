@@ -134,7 +134,8 @@ input[type="text"]{
     }
 
     .todoList__span,
-    .todoList__item__btn > button{
+    .todoList__item__btn > button,
+    .dateSpan{
         font-size: 12px;
     }
 
@@ -144,5 +145,14 @@ input[type="text"]{
 
     .todoList__input__wrap > button{
         width: 25%;
+    }
+
+    .todoList__item__str{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .dateSpan{
+        margin: 0;
     }
 }
