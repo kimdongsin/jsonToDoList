@@ -3,18 +3,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const input = document.querySelector("#input");
     const toDoList = document.querySelector(".todoList__ul__wrap");
 
+    const today = new Date();
 
-    var today = new Date();
-
-    var year = today.getFullYear();
-    var month = ('0' + (today.getMonth() + 1)).slice(-2);
-    var day = ('0' + today.getDate()).slice(-2);
+    const year = today.getFullYear();
+    const month = ('0' + (today.getMonth() + 1)).slice(-2);
+    const day = ('0' + today.getDate()).slice(-2);
     
-    var dateString = year + '-' + month  + '-' + day;
+    const hours = today.getHours();
+    const minutes = today.getMinutes();
+
+    const dateString = year + '-' + month  + '-' + day + ', ' + hours + ':' + minutes;
+
+
     
-    console.log(dateString);
-
-
     $.ajax({ // 조회
         url : 'http://localhost:3000/todos',
         type: 'GET',
@@ -32,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 tag += '                <div class="todoList__item__str">';
                 tag += '                   <span class="todoList__span">' + res[i].value  + '</span>';
                 tag += '                    <input type="text" class="todoList__correction">';
-                tag += '                    <span class="dateSpan">' + dateString + '</span>';
+                tag += '                    <span class="dateSpan">' + res[i].date + '</span>';
                 tag += '                </div>';
                 tag += '                <div class="todoList__item__btn" id="'+ res[i].id +'">';
                 tag += '                    <button class="editBtn">수정</button>';
@@ -65,9 +66,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 data: {
                     value: input.value,
                     del: false,
+                    date: dateString,
                 },
                 type: "POST",
                 success : function(res) {
+
+                    
 
                     let tag = '';
                     
